@@ -1,8 +1,11 @@
 import * as vscode from 'vscode';
 import { JarifyDiagnosticsProvider } from './diagnostics';
 import { JarifyFormatter } from './formatter';
+import { ensureJarify } from './installer';
 
 export function activate(context: vscode.ExtensionContext): void {
+  ensureJarify();
+
   const formatter = new JarifyFormatter();
   const diagnostics = new JarifyDiagnosticsProvider();
 
