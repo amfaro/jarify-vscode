@@ -26,7 +26,7 @@ Set jarify as your default formatter for a language in your VS Code settings:
 
 ```jsonc
 {
-  "[sql]": {
+  "[yaml]": {
     "editor.defaultFormatter": "amfaro.jarify-vscode",
     "editor.formatOnSave": true
   }
