@@ -9,25 +9,26 @@ export async function ensureJarify(): Promise<boolean> {
     return true;
   }
 
-  const pick = await vscode.window.showErrorMessage(
-    `jarify not found at "${executable}". Install it to enable formatting and diagnostics.`,
-    'Install via uv',
-    'Install via pip',
-    'Configure path',
+  return vscode.window.withProgress(
+    { location: vscode.ProgressLocation.Notification, title: 'Installing jarify…' },
+    () => install(),
   );
+}
 
-  if (pick === 'Install via uv') {
-    openTerminal('uv tool install jarify');
-  } else if (pick === 'Install via pip') {
-    openTerminal('pip install jarify');
-  } else if (pick === 'Configure path') {
-    await vscode.commands.executeCommand(
-      'workbench.action.openSettings',
-      'jarify.executable',
-    );
-  }
-
-  return false;
+function install(): Promise<boolean> {
+  return new Promise((resolve) => {
+    cp.exec('uv tool install jarify', (err) => {
+      if (err) {
+        vscode.window.showErrorMessage(
+          `jarify install failed: ${err.message}. Install manually with: uv tool install jarify`,
+        );
+        resolve(false);
+      } else {
+        vscode.window.showInformationMessage('jarify installed successfully.');
+        resolve(true);
+      }
+    });
+  });
 }
 
 function isAvailable(executable: string): Promise<boolean> {
@@ -36,10 +37,4 @@ function isAvailable(executable: string): Promise<boolean> {
     proc.on('error', () => resolve(false));
     proc.on('close', (code) => resolve(code === 0));
   });
-}
-
-function openTerminal(command: string): void {
-  const term = vscode.window.createTerminal('jarify install');
-  term.show();
-  term.sendText(command);
 }
