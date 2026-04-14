@@ -1,0 +1,18 @@
+[tools]
+node = "20"
+
+[tasks.install]
+run = "npm install"
+description = "Install npm dependencies"
+
+[tasks.compile]
+run = "npm run compile"
+description = "Compile TypeScript to out/"
+
+[tasks.watch]
+run = "npm run watch"
+description = "Watch and recompile on change"
+
+[tasks.package]
+run = "npx @vscode/vsce package"
+description = "Package extension as .vsix"
