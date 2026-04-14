@@ -20,3 +20,8 @@ description = "Package extension as .vsix"
 [tasks.publish]
 run = "npm run publish"
 description = "Publish to VS Code Marketplace (requires VSCE_PAT)"
+
+[tasks.setup-vsce-pat]
+run = "scripts/setup-vsce-pat.sh"
+description = "Set VSCE_PAT GitHub Actions secret (prompts for token)"
+
