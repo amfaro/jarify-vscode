@@ -9,7 +9,9 @@ VS Code extension providing **formatting** and **diagnostics** via the [`jarify`
 
 ## Requirements
 
-Install `jarify` via mise before using the extension. The extension will show an error notification if the binary can't be found — see #9 for planned auto-install support.
+The `jarify` binary must be installed and available on your `$PATH`, or you can configure a full path via `jarify.executable`.
+
+> **Note:** Diagnostics depend on `jarify lint --format json` (amfaro/jarify#55).
 
 ## Settings
 
