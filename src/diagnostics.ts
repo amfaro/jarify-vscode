@@ -4,7 +4,6 @@ import { buildConfigArgs, getConfig } from './config';
 
 /**
  * Shape of a single diagnostic emitted by `jarify lint --format json`.
- * Depends on amfaro/jarify#55 (--format json).
  */
 interface LintDiagnostic {
   file: string;
