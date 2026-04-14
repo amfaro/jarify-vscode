@@ -70,9 +70,11 @@ Do this once before the first release. Steps 1–3 require a browser. Step 4 is 
 
 > If you can already reach `https://dev.azure.com/{yourorg}` — skip to step 2.
 
-1. Go to [https://dev.azure.com](https://dev.azure.com) and sign in with a **Microsoft account** (personal or work).
-2. After sign-in you land on your organizations list. Click **New organization** in the left sidebar or at the top of the list.
-3. Choose a name and a hosting region, then click **Continue**.
+You only need a **free Microsoft account** (Outlook, Hotmail, etc.) — no Azure subscription required.
+
+1. Go to [https://dev.azure.com](https://dev.azure.com) and sign in with your Microsoft account.
+2. After sign-in you land on your organizations list. Click **New organization** in the left sidebar or top of the list.
+3. Choose a name and hosting region, then click **Continue**. Ignore any prompts about Azure subscriptions — the free tier is sufficient for generating a PAT.
 
 ---
 
