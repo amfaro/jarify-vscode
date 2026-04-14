@@ -41,7 +41,7 @@ mise run install-extension
 
 Builds the `.vsix` and installs it into VS Code. Then reload: `Cmd+Shift+P` → **Developer: Reload Window**.
 
-To update to a newer build, run the same command and reload again.
+> **Prerequisite:** `code` must be in your `$PATH`. If not: `Cmd+Shift+P` → **Shell Command: Install 'code' command in PATH**.
 
 ## Development
 

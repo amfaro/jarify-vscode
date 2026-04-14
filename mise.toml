@@ -1,5 +1,5 @@
 [tools]
-node = "20"
+node = "24"
 
 [tasks.install]
 run = "npm install"
@@ -18,9 +18,16 @@ run = "npm run package"
 description = "Package extension as .vsix"
 
 [tasks.install-extension]
+depends = ["package"]
 run = """
-npm run package && \
-code --install-extension jarify-vscode-*.vsix && \
+# Locate the VS Code CLI — added to PATH via:
+#   Cmd+Shift+P → "Shell Command: Install 'code' command in PATH"
+if ! command -v code &>/dev/null; then
+  echo "ERROR: 'code' not found in PATH."
+  echo "In VS Code: Cmd+Shift+P → Shell Command: Install 'code' command in PATH"
+  exit 1
+fi
+code --install-extension jarify-vscode-*.vsix
 echo "✓ Installed. Reload VS Code: Cmd+Shift+P → Developer: Reload Window"
 """
 description = "Build and install extension into local VS Code"
