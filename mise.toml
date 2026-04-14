@@ -14,5 +14,13 @@ run = "npm run watch"
 description = "Watch and recompile on change"
 
 [tasks.package]
-run = "npx @vscode/vsce package"
+run = "npm run package"
 description = "Package extension as .vsix"
+
+[tasks.install-extension]
+run = """
+npm run package && \
+code --install-extension jarify-vscode-*.vsix && \
+echo "✓ Installed. Reload VS Code: Cmd+Shift+P → Developer: Reload Window"
+"""
+description = "Build and install extension into local VS Code"

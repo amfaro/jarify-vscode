@@ -35,40 +35,13 @@ Set jarify as your default formatter for a language in your VS Code settings:
 
 ## Distribution
 
-### Build the `.vsix`
-
 ```bash
-mise run package
+mise run install-extension
 ```
 
-This compiles TypeScript and produces `jarify-vscode-<version>.vsix` in the repo root.
+Builds the `.vsix` and installs it into VS Code. Then reload: `Cmd+Shift+P` → **Developer: Reload Window**.
 
-### Install locally
-
-```bash
-code --install-extension jarify-vscode-*.vsix
-```
-
-Then reload VS Code to activate the extension:
-
-- `Cmd+Shift+P` (macOS) or `Ctrl+Shift+P` (Linux/Windows) → **Developer: Reload Window**
-
-### Verify it's active
-
-- Open the **Extensions** panel (`Cmd+Shift+X`) and search for `Jarify` — it should appear as installed.
-- Open a file and run **Format Document** (`Shift+Alt+F`) — if `jarify` is on your `$PATH`, it will format via `jarify fmt`.
-- Check the **Problems** panel for diagnostics on save (requires amfaro/jarify#55).
-
-### Update to a newer build
-
-Rebuild and reinstall — VS Code will replace the previous version:
-
-```bash
-mise run package
-code --install-extension jarify-vscode-*.vsix
-```
-
-Then reload the window again.
+To update to a newer build, run the same command and reload again.
 
 ## Development
 
