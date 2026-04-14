@@ -14,5 +14,9 @@ run = "npm run watch"
 description = "Watch and recompile on change"
 
 [tasks.package]
-run = "npx @vscode/vsce package"
+run = "npm run package"
 description = "Package extension as .vsix"
+
+[tasks.publish]
+run = "npm run publish"
+description = "Publish to VS Code Marketplace (requires VSCE_PAT)"
