@@ -35,11 +35,13 @@ Set jarify as your default formatter for a language in your VS Code settings:
 
 ## Distribution
 
-Package as a `.vsix` for internal distribution:
-
 ```bash
-mise run package
+mise run install-extension
 ```
+
+Builds the `.vsix` and installs it into VS Code. Then reload: `Cmd+Shift+P` → **Developer: Reload Window**.
+
+> **Prerequisite:** `code` must be in your `$PATH`. If not: `Cmd+Shift+P` → **Shell Command: Install 'code' command in PATH**.
 
 ## Development
 
