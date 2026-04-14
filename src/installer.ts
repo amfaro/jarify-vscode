@@ -11,15 +11,15 @@ export async function ensureJarify(): Promise<boolean> {
 
   const pick = await vscode.window.showErrorMessage(
     `jarify not found at "${executable}". Install it to enable formatting and diagnostics.`,
-    'Install via mise',
-    'Install via cargo',
+    'Install via uv',
+    'Install via pip',
     'Configure path',
   );
 
-  if (pick === 'Install via mise') {
-    openTerminal('mise use -g jarify');
-  } else if (pick === 'Install via cargo') {
-    openTerminal('cargo install jarify');
+  if (pick === 'Install via uv') {
+    openTerminal('uv tool install jarify');
+  } else if (pick === 'Install via pip') {
+    openTerminal('pip install jarify');
   } else if (pick === 'Configure path') {
     await vscode.commands.executeCommand(
       'workbench.action.openSettings',

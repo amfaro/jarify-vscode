@@ -9,7 +9,7 @@ VS Code extension providing **formatting** and **diagnostics** via the [`jarify`
 
 ## Requirements
 
-If `jarify` is not found on activation, the extension will prompt you to install it via **mise** or **cargo** — or you can configure a custom path via `jarify.executable`.
+If `jarify` is not found on activation, the extension will prompt you to install it via **uv** or **pip** — or you can configure a custom path via `jarify.executable`.
 
 ## Settings
 
