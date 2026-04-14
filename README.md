@@ -57,81 +57,47 @@ The workflow runs `vsce publish` using a `VSCE_PAT` repository secret. See [Sett
 
 ## Setting up VSCE_PAT
 
-Publishing to the VS Code Marketplace requires:
-- a **Personal Access Token** (PAT) from Azure DevOps
-- a registered **publisher** on the VS Code Marketplace
-- the PAT stored as a **GitHub Actions secret** on this repo
-
-Do this once before the first release. Steps 1–3 require a browser. Step 4 is automated.
+Publishing requires a **free Microsoft account** only — no Azure subscription, no Azure DevOps organization.
 
 ---
 
-### 1 — Get an Azure DevOps organization (skip if you already have one)
+### 1 — Create a Marketplace PAT
 
-> If you can already reach `https://dev.azure.com/{yourorg}` — skip to step 2.
-
-You only need a **free Microsoft account** (Outlook, Hotmail, etc.) — no Azure subscription required.
-
-1. Go to [https://dev.azure.com](https://dev.azure.com) and sign in with your Microsoft account.
-2. After sign-in you land on your organizations list. Click **New organization** in the left sidebar or top of the list.
-3. Choose a name and hosting region, then click **Continue**. Ignore any prompts about Azure subscriptions — the free tier is sufficient for generating a PAT.
-
----
-
-### 2 — Create a Personal Access Token
-
-> Azure DevOps sign-in URL: `https://dev.azure.com/{yourorg}` — substitute your org slug.
-
-1. Sign in to `https://dev.azure.com/{yourorg}`.
-2. In the **top-right corner**, click the ⚙️ **user settings gear icon** (not your profile picture — the gear icon beside it).
-3. In the dropdown, select **Personal access tokens**.
-4. Click **+ New Token**.
-5. Fill in the form:
-   - **Name:** `vsce-jarify` (anything recognizable)
-   - **Organization:** choose **All accessible organizations** — a single-org token is rejected by `vsce`
-   - **Expiration:** pick a date; note it for renewal (Azure DevOps max is 1 year)
-   - **Scopes:** select **Custom defined**, then click **Show all scopes** at the bottom of the list, scroll to **Marketplace**, and check **Manage**
-6. Click **Create**.
-7. **Copy the token immediately** — Azure DevOps will never show it again. Save it somewhere safe (1Password, etc.) for the next steps.
+1. Go to [https://marketplace.visualstudio.com/manage](https://marketplace.visualstudio.com/manage) and sign in with your Microsoft account.
+2. Click your name/avatar in the top right → **Personal access tokens**.
+3. Click **+ New Token**.
+4. Fill in:
+   - **Name:** `vsce-jarify`
+   - **Organization:** **All accessible organizations**
+   - **Expiration:** up to 1 year — note it for renewal
+   - **Scopes:** Custom defined → scroll to **Marketplace** → check **Manage**
+5. Click **Create** and **copy the token immediately** — it won't be shown again.
 
 ---
 
-### 3 — Create the `amfaro` publisher (skip if it already exists)
+### 2 — Create the `amfaro` publisher (skip if it already exists)
 
-> Must use the **same Microsoft account** as step 2.
+1. Still on [https://marketplace.visualstudio.com/manage](https://marketplace.visualstudio.com/manage), click **Create publisher**.
+2. Set **ID** to `amfaro` (must match `publisher` in `package.json`; cannot change later).
+3. Click **Create**.
 
-1. Go to [https://marketplace.visualstudio.com/manage](https://marketplace.visualstudio.com/manage) and sign in.
-2. Click **Create publisher** in the left pane.
-3. Fill in:
-   - **ID:** `amfaro` — must match `publisher` in `package.json`; cannot be changed later
-   - **Display name:** anything (e.g. `Amfaro`)
-4. Click **Create**.
-
-Verify locally (optional but recommended):
+Verify locally (optional):
 
 ```bash
 ./node_modules/.bin/vsce login amfaro
-# paste the PAT from step 2 when prompted
+# paste the PAT when prompted
 ```
 
 ---
 
-### 4 — Set the GitHub secret (automated)
-
-Once you have the PAT, run the setup script — it handles the GitHub secret for you:
+### 3 — Set the GitHub secret (automated)
 
 ```bash
-./scripts/setup-vsce-pat.sh
-# you'll be prompted to paste the token (input is hidden)
+mise run setup-vsce-pat
+# prompts for the PAT, sets VSCE_PAT on amfaro/jarify-vscode
 ```
 
-Or pipe it directly:
-
-```bash
-echo "<your-pat>" | ./scripts/setup-vsce-pat.sh
-```
-
-The script uses `gh secret set` to write `VSCE_PAT` to `amfaro/jarify-vscode` Actions secrets. You can verify it was saved:
+Verify:
 
 ```bash
 gh secret list --repo amfaro/jarify-vscode
